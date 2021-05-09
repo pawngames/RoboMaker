@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/objects/AnchorNode.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=6]
+
+[sub_resource type="SphereMesh" id=7]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape" id=8]
+radius = 0.25
+
+[node name="AnchorNode" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Anchor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0 )
+material_override = SubResource( 6 )
+mesh = SubResource( 7 )
+material/0 = null
+
+[node name="Area" type="Area" parent="Anchor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Anchor/Area"]
+shape = SubResource( 8 )
+[connection signal="input_event" from="Anchor/Area" to="." method="_on_Area_input_event"]
+[connection signal="mouse_entered" from="Anchor/Area" to="." method="_on_Area_mouse_entered"]
+[connection signal="mouse_exited" from="Anchor/Area" to="." method="_on_Area_mouse_exited"]
